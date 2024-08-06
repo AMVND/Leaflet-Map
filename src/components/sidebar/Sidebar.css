@@ -1,42 +1,85 @@
-/* src/Sidebar.css */
+/* src/components/Sidebar.css */
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 300px;
+  background-color: #333;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+  z-index: 1000;
+  padding: 10px;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar .toggle-button {
+  position: absolute;
+  top: 20px;
+  left: 300px;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.sidebar .search-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.sidebar .search-form input {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.sidebar .search-form button {
+  padding: 10px;
+  background-color: #444;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar .search-results {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar .search-results li {
+  padding: 10px;
+  background-color: #444;
+  color: white;
+  cursor: pointer;
+}
+
+.sidebar .search-results li:hover {
+  background-color: #555;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
     width: 250px;
-    height: 100%;
-    background-color: #333;
-    color: white;
-    transition: transform 0.3s ease;
-    transform: translateX(-100%);
   }
-  
-  .sidebar.open {
-    transform: translateX(0);
+
+  .sidebar .toggle-button {
+    left: 250px;
   }
-  
-  .toggle-button {
-    position: absolute;
-    top: 10px;
-    right: -50px;
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 200px;
   }
-  
-  .sidebar-content {
-    padding: 20px;
+
+  .sidebar .toggle-button {
+    left: 200px;
   }
-  
-  @media (max-width: 768px) {
-    .sidebar {
-      width: 200px;
-    }
-  
-    .toggle-button {
-      right: -40px;
-    }
-  }
-  
+}

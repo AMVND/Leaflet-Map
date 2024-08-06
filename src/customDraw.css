@@ -1,0 +1,52 @@
+.leaflet-draw-draw-polygon {
+  background-image: url('/public/icons/polygon.png') !important;
+  background-size: 26px 26px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.leaflet-draw-edit-edit {
+  background-image: url('/public/icons/edit.png') !important;
+  background-size: 26px 26px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.leaflet-draw-edit-remove {
+  background-image: url('/public/icons/delete.png') !important;
+  background-size: 26px 26px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* src/components/AnimatedMarker.css */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  70% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animated-marker {
+  background-image: url('/public/icons/location.png') !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bounce 1s infinite;
+  color: red;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  border: 2px solid white;
+}
