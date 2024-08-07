@@ -40,13 +40,9 @@
 
 .animated-marker {
   background-image: url('/public/icons/location.png') !important;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   animation: bounce 1s infinite;
-  color: red;
-  text-align: center;
-  font-size: 12px;
-  font-weight: bold;
-  border: 2px solid white;
 }

@@ -1,10 +1,29 @@
-/* src/components/Sidebar.css */
+:root {
+  --sidebar-width: 300px;
+  --sidebar-toggle-width: 330px;
+  --map-control-margin: 30px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: 250px;
+    --sidebar-toggle-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --sidebar-width: 200px;
+    --sidebar-toggle-width: 230px;
+  }
+}
+
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
-  width: 300px;
+  width: var(--sidebar-width);
   background-color: #333;
   overflow-y: auto;
   transition: transform 0.3s ease;
@@ -18,13 +37,12 @@
 }
 
 .sidebar .toggle-button {
-  position: absolute;
-  top: 20px;
-  left: 300px;
+  position: fixed;
+  top: 0;
+  left: 0;
   background-color: #333;
   color: white;
   border: none;
-  padding: 10px;
   cursor: pointer;
   z-index: 1001;
 }
@@ -64,22 +82,19 @@
   background-color: #555;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    width: 250px;
-  }
-
-  .sidebar .toggle-button {
-    left: 250px;
-  }
+.open-button {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1001;
+  display: none;
 }
 
-@media (max-width: 480px) {
-  .sidebar {
-    width: 200px;
-  }
-
-  .sidebar .toggle-button {
-    left: 200px;
-  }
+.open-button.visible {
+  display: block;
 }
