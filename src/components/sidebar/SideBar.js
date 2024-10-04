@@ -24,7 +24,7 @@ const Sidebar = ({ onPlaceSelected, onToggleSidebar, isOpen }) => {
       <button className="toggle-button" onClick={toggleSidebar}>
         {isOpen ? 'Close' : 'Open'}
       </button>
-      <form onSubmit={handleSearch} className="search-form">
+      {/* <form onSubmit={handleSearch} className="search-form">
         <input
           type="text"
           placeholder="Search by name or address"
@@ -32,7 +32,20 @@ const Sidebar = ({ onPlaceSelected, onToggleSidebar, isOpen }) => {
           onChange={(e) => setQuery(e.target.value)}
         />
         <button type="submit">Search</button>
+      </form> */}
+
+      <form onSubmit={handleSearch} className="auto-search-wrapper loupe">
+        <input
+          type="text"
+          autoComplete="off"
+          id="search"
+          className="full-width"
+          placeholder="enter the city name"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </form>
+
       <ul className="search-results">
         {results.map((result) => (
           <li key={result.place_id} onClick={() => onPlaceSelected(result)}>

@@ -3,8 +3,6 @@ import { MapContainer, TileLayer, LayersControl, Marker, Popup } from 'react-lea
 import Sidebar from './sidebar/SideBar';
 import DrawControl from './DrawControl';
 import MapUpdater from './MapUpdater';
-import LocationMarker from './LocationMarker';
-import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import 'leaflet-measure/dist/leaflet-measure.css';
@@ -12,6 +10,7 @@ import 'leaflet-draw';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-routing-machine';
 import '../customDraw.css'; 
+
 
 const { BaseLayer } = LayersControl;
 
@@ -21,7 +20,6 @@ const Map = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(null);
   const mapRef = useRef();
-  const routingControlRef = useRef(null);
 
   useEffect(() => {
     fetch('/layers.json')
@@ -63,23 +61,7 @@ const Map = () => {
     });
   };
 
-  const handleLocationSelected = (latlng) => {
-    if (mapRef.current && currentLocation) {
-      if (routingControlRef.current) {
-        mapRef.current.removeControl(routingControlRef.current);
-      }
-      routingControlRef.current = L.Routing.control({
-        waypoints: [
-          L.latLng(currentLocation.lat, currentLocation.lon),
-          L.latLng(latlng.lat, latlng.lng),
-        ],
-        routeWhileDragging: true,
-      }).addTo(mapRef.current);
-    }
-  };
-
-
-
+ 
   return (
     <>
       <button
@@ -98,7 +80,6 @@ const Map = () => {
           ))}
         </LayersControl>
         <DrawControl />
-        <LocationMarker onLocationSelected={handleLocationSelected} />
         {selectedPlace && (
           <>
             <Marker
