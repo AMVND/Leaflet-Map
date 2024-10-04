@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, LayersControl, Marker, Popup } from 'react-leaflet';
-import Sidebar from './sidebar/SideBar';
+
 import DrawControl from './DrawControl';
 import MapUpdater from './MapUpdater';
+import RoutingMachine from './RoutingMachine';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import 'leaflet-measure/dist/leaflet-measure.css';
@@ -15,11 +16,16 @@ import '../customDraw.css';
 const { BaseLayer } = LayersControl;
 
 const Map = () => {
+  const [map, setMap] = useState(null);
   const [layers, setLayers] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(null);
-  const mapRef = useRef();
+
+  // Các vị trí bắt đầu và kết thúc (bạn có thể tuỳ chỉnh hoặc nhận từ input của người dùng)
+  const start = currentLocation;  // Hà Nội
+  const end = [21.003117, 105.820140];    // Vị trí khác ở Hà Nội
+
 
   useEffect(() => {
     fetch('/layers.json')
@@ -42,40 +48,17 @@ const Map = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const mapControls = document.querySelectorAll('.leaflet-control');
-    mapControls.forEach((control) => {
-      control.style.marginLeft = isSidebarOpen ? 'var(--sidebar-toggle-width)' : 'var(--map-control-margin)';
-    });
-  }, [isSidebarOpen]);
-
-  const handleSidebarToggle = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const handlePlaceSelected = (place) => {
-    setSelectedPlace({
-      lat: place.lat,
-      lon: place.lon,
-      display_name: place.display_name,
-    });
-  };
+  
 
  
   return (
     <>
-      <button
-        className={`open-button ${!isSidebarOpen ? 'visible' : ''}`}
-        onClick={handleSidebarToggle}
-      >
-        =
-      </button>
-      <Sidebar onPlaceSelected={handlePlaceSelected} onToggleSidebar={handleSidebarToggle} isOpen={isSidebarOpen} />
-      <MapContainer center={[21.239269, 105.703560]} zoom={15} style={{ height: "100vh", width: "100%" }} whenCreated={(mapInstance) => { mapRef.current = mapInstance; }}>
+      <MapContainer center={start} zoom={15} style={{ height: "100vh", width: "100%" }} whenCreated={setMap}>
         <LayersControl position="topright">
           {layers.map((layer, index) => (
             <BaseLayer key={index} checked={layer.checked} name={layer.name}>
               <TileLayer url={layer.url} attribution={layer.attribution} />
+              {map && <RoutingMachine map={map} start={start} end={end} />}
             </BaseLayer>
           ))}
         </LayersControl>
